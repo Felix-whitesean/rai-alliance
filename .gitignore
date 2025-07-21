@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# db
+/database
+/lib
+
 # production
 /build
 
