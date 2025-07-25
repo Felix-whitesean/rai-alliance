@@ -12,6 +12,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import {FIELD_NAMES, FIELD_TYPES} from "@/constants";
+import formSchema from "@/lib/validations";
 
 interface Props <T extends FieldValues> {
     type: "signin" | "signup";
@@ -23,7 +24,12 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
     const  isSignIn = type === "signin";
     const [error, setError] = useState("");
 
-    const formSchema = z.object({
+    const signInSchema = z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+    });
+
+    const signUpSchema = z.object({
         username: z.string().min(5),
         email: z.string().email(),
         first_name: z.string().min(1),
@@ -33,7 +39,7 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(isSignIn ? signInSchema : signUpSchema),
         defaultValues: defaultValues as DefaultValues<T>,
     });
 
@@ -41,13 +47,16 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
         if (isSignIn) {
             const res = await signIn("credentials", {
                 redirect: false,
-                ...data,
+                email: data.email,
+                password: data.password,
             });
             if (res?.error) {
                 console.log(res?.error);
                 setError(res.error);
             }
-            else router.push("/");
+            else {
+                router.push("/");
+            }
         } else {
             console.log("Sending to server:", data);
             const res = await fetch("/api/register", {

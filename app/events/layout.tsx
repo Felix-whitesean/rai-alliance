@@ -13,7 +13,7 @@ const Layout = async ({children}:{children:ReactNode}) => {
         console.log(session.user ? "User ID:" + session.user.name : "No user ID")
     }
     return (
-        <main className=" flex flex-1 flex-col min-h-screen">
+        <main className="min-h-screen bg-[#DCDCDC]">
             <ClientSessionProvider session={session}>
                 <div className=""> {children}</div>
             </ClientSessionProvider>
@@ -22,3 +22,4 @@ const Layout = async ({children}:{children:ReactNode}) => {
 }
 
 export default Layout;
+
