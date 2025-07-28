@@ -4,7 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const Subscription = () => {
     return (
-        <div className="sm:p-32 p-2">
+        <div className="lg:p-32 md: p-8 sm:p-2">
             <div className="bg-background m-auto flex sm:flex-row flex-col w-full sm:h-[400px] h-[500px]">
                 <div className="flex p-8 sm:w-[50%] w-full self-center">
                     <div className="flex flex-col gap-4 w-fit">
@@ -15,7 +15,6 @@ const Subscription = () => {
                         </form>
                         <p className="text-regular text-[0.75rem]"><span className="text-prim-color font-semibold">Your time matters.</span> Let us handle the reminders, updates and invites - you just check your inbox</p>
                     </div>
-
                 </div>
                 <div className="flex-[0 0 1] sm:w-[50%] w-full h-full relative after:absolute after:left-0 after:top-0 after:w-full after:h-full after:[]"
                      style={{ backgroundImage: `url("/poster.jpg")`, backgroundSize: "100% 100%"}}></div>

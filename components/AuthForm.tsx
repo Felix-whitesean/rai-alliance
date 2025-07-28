@@ -45,6 +45,7 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         if (isSignIn) {
+            console.log("Submitted data:", data);
             const res = await signIn("credentials", {
                 redirect: false,
                 email: data.email,

@@ -10,8 +10,6 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import EventsUpdates from "@/components/EventsUpdates";
 import Subscription from "@/components/Subscription";
 
-
-
 const Page = () => {
     return (
         <div className="bg-[#DCDCDC] p-2 sm:p-4 pb-4">
@@ -72,7 +70,6 @@ const Page = () => {
                     <Subscription />
                 </div>
             </div>
-
         </div>
     );
 }
