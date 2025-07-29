@@ -47,12 +47,12 @@ const Page = () => {
                                         </Link>
                                         <hr className="text-white"/>
                                         <Link href="" className="flex flex-row w-full justify-between sm:px-12 px-2">
-                                            <span className="text-shadow-[0_4px_4px_black] uppercase">feedback</span>
+                                            <span className="text-shadow-[0_4px_4px_black] uppercase">recording</span>
                                             <span className="self-center"><FaArrowRightLong /></span>
                                         </Link>
                                         <hr className="text-white"/>
                                         <Link href="" className="flex flex-row w-full justify-between sm:px-12 px-2">
-                                            <span className="text-shadow-[0_4px_4px_black] uppercase">feedback</span>
+                                            <span className="text-shadow-[0_4px_4px_black] uppercase">presentation slides</span>
                                             <span className="self-center"><FaArrowRightLong /></span>
                                         </Link>
                                     </div>

@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     if(!user_id){
         return NextResponse.json({ error: "Sign in to continue" }, { status: 400 });
     }
-    if(role_id != 1){
+    if(role_id != 3){
         return NextResponse.json({ error: "You lack the permissions to delete this event." });
     }
 
