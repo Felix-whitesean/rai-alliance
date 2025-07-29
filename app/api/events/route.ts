@@ -19,10 +19,8 @@ export async function  GET() {
             'CALL sp_getuser(?)', [email]
         );
         role_id = user_rows[0][0].privilege;
-        console.log(role_id);
     }
 
-    console.log(role_id)
     try {
         const [rows]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
             'CALL sp_getevents(?, ?)', ['', role_id]

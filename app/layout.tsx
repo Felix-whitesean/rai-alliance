@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, Kode_Mono } from 'next/font/google'
+import {getServerSession, Session} from "next-auth";
+import {authOptions} from "@/lib/auth";
+import ClientSessionProvider from "@/components/ClientSessionProvider";
+import {ReactNode} from "react";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -20,18 +24,16 @@ export const metadata: Metadata = {
   description: "Responsible artificial intelligence Alliance. RAI Alliance, RAI-Alliance",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
+const RootLayout = async ({children}:{children:ReactNode}) =>{
+    const session: Session | null = await getServerSession(authOptions);
+    return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${kodeMono.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${kodeMono.variable} antialiased min-h-screen w-full`}>
+      <ClientSessionProvider session={session}>
         {children}
+      </ClientSessionProvider>
       </body>
     </html>
-  );
+    );
 }
+export default RootLayout;

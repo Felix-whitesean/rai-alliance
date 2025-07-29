@@ -1,8 +1,62 @@
+import Link from 'next/link';
 import React from 'react'
+import { MdOutlinePhoneInTalk, MdOutlineMail } from "react-icons/md";
+import {FaLinkedin, FaTiktok} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
+
+
 
 const Footer = () => {
+    const navItems = [
+        { name: 'Home', href: '/' },
+        { name: 'About us', href: '/about' },
+        { name: 'Events', href: '/events' },
+        { name: 'Team', href: '/team' },
+    ];
+    const contacts = [
+        {name: '+254-717-999-616', href: 'tel:+254717999616', icon: <MdOutlinePhoneInTalk size={24}/> },
+        {name: 'rai-alliance.org' , href: "mailto:rai-alliance.org", icon: <MdOutlineMail size={24} />}
+    ];
+    const social_media = [
+        {name: "RAI-ALLIANCE", icon: <FaLinkedin size={22} color="#0077B5" /> },
+        {name: "@raialliance", icon: <FaTiktok size={24}/>},
+        {name:  "@alliance77316", icon: <FaXTwitter size={24}/>}
+    ];
     return (
-        <div>Footer</div>
+        <div className="h=[70%] w-full bg-[var(--sec-color)] p-12 text-background flex flex-row justify-between flex-wrap gap-4">
+            <div className="">
+                <h3 className="uppercase text-[1.1rem] font-bold">NAVIGATION</h3>
+                <nav className="flex flex-col gap-2 text-[0.9rem]">
+                    {navItems.map((item) => (
+                        <Link key={item.name} href={item.href} >{item.name}</Link>
+                        ))}
+
+                </nav>
+            </div>
+            <div className="flex flex-col gap-2">
+                <h3 className="uppercase text-[1.1rem] font-bold">Talk to us</h3>
+                <div className="contact flex flex-col gap-2">
+                    {contacts.map((contact) => (
+                        <Link href={contact.href} key={contact.name} className="text-[0.9rem] flex flex-row gap-2">
+                            <span>{contact.icon}</span>
+                            <span>{contact.name}</span>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+            <div className="flex flex-col gap-2">
+                <h3 className="uppercase text-[1.1rem] font-bold">Find us at:</h3>
+                <div className=" flex  flex-col gap-2">
+                    {social_media.map((contact) => (
+                        <p key={contact.name} className="text-[0.9rem] flex flex-row gap-4">
+                            <span>{contact.icon}</span>
+                            <span>{contact.name}</span>
+                        </p>
+                    ))}
+                </div>
+            </div>
+        </div>
     )
 }
 export default Footer

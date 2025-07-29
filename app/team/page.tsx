@@ -1,12 +1,9 @@
+import Navbar from '@/components/NavBar'
 import React from 'react'
-import Navbar from "@/components/NavBar";
 
 const Page = () => {
     return (
-        <div>
-            <Navbar/>
-            Page
-        </div>
+        <div> <Navbar/></div>
     )
 }
 export default Page

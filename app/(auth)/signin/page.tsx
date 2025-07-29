@@ -1,13 +1,16 @@
 import AuthForm from "@/components/AuthForm";
+import Navbar from "@/components/NavBar";
 
 export default function SignInPage() {
     return (
-        <div className="max-w-md mx-auto mt-10">
-            <h1 className="text-2xl mb-4">Sign In</h1>
-            <AuthForm type="signin" defaultValues={{
-                email:"",
-                password:"",
-            }}/>
-        </div>
+        <>
+            <div className="bg-[#C4C4C496] min-h-screen">
+                <Navbar />
+                <AuthForm type="signin" defaultValues={{
+                    email:"",
+                    password:"",
+                }}/>
+            </div>
+        </>
     );
 }

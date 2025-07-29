@@ -35,9 +35,8 @@ const Mission = () => {
                             <Title heading="Vision" icon={<BiSolidBinoculars size={24} />} primaryBg="#D9D9D9" secondaryBg="#D5C1DC"/>
                         </div>
                         <p className="text-16 font-medium italic p-8">
-                            Our mission is to promote responsible AI development and use, ensuring that AI is developed and used in a
-                            way that respects human rights and promotes social good. We believe that AI has the potential to transform
-                            society for the better, but only if it is developed and used ethically.
+                            Our vision is a world where AI is developed and used in a way that respects human rights and promotes social good.
+                            We believe that AI has the potential to transform society for the better, but only if it is developed and used ethically.
                         </p>
                     </div>
                 </div>

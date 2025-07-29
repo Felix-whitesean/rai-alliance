@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import {FIELD_NAMES, FIELD_TYPES} from "@/constants";
 import formSchema from "@/lib/validations";
+import Image from "next/image";
 
 interface Props <T extends FieldValues> {
     type: "signin" | "signup";
@@ -99,51 +100,61 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                {Object.keys(defaultValues).map((fieldKey) => {
-                    const fieldType = FIELD_TYPES[fieldKey as keyof typeof FIELD_TYPES];
-                    const isPassword = fieldType === "password";
+                <div className="w-full h-screen px-8 mt-16 m-auto">
+                    <div className="bg-background w-fit m-auto rounded-mg px-16 py-4 rounded-lg flex flex-col gap-4 items-center" >
+                        <div className="w-fit m-auto flex flex-col gap-4">
+                            <Image src="/logo.png" alt="LOGO" width={30} height={20} className="self-center" />
+                            <h1 className="text-prim-color bg-[var(--prim-color-4)] px-12 py-2 rounded-sm">{ isSignIn ? "Sign in" : "Sign up"} </h1>
+                        </div>
+                        {Object.keys(defaultValues).map((fieldKey) => {
+                            const fieldType = FIELD_TYPES[fieldKey as keyof typeof FIELD_TYPES];
+                            const isPassword = fieldType === "password";
+                            return (
+                                <div key={fieldKey} className="">
+                                <FormField
+                                    control={form.control}
+                                    name={fieldKey as Path<T>}
+                                    render={({ field }) => {
+                                        return (
+                                            <FormItem>
+                                                <FormLabel>
+                                                    {FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}:
+                                                </FormLabel>
+                                                <div className="relative ">
+                                                    <FormControl>
+                                                        <Input
+                                                            {...field}
+                                                            type={isPassword ? (showPassword ? "text" : "password") : fieldType}
+                                                            className={`${isPassword ? "pr-10" : ""} border-1 border-black rounded-sm sm:w-[400px] w-80%`}
+                                                        />
+                                                    </FormControl>
 
-                    return (
-                        <FormField
-                            key={fieldKey}
-                            control={form.control}
-                            name={fieldKey as Path<T>}
-                            render={({ field }) => {
-                                return (
-                                    <FormItem>
-                                        <FormLabel>
-                                            {FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}:
-                                        </FormLabel>
-                                        <div className="relative">
-                                            <FormControl>
-                                                <Input
-                                                    {...field}
-                                                    type={isPassword ? (showPassword ? "text" : "password") : fieldType}
-                                                    className={isPassword ? "pr-10" : ""}
-                                                />
-                                            </FormControl>
-
-                                            {isPassword && (
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setShowPassword((prev) => !prev)}
-                                                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
-                                                >
-                                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                                                </button>
-                                            )}
-                                        </div>
-                                    </FormItem>
-                                );
-                            }}
-                        />
-                    );
-                })}
-                {error && <p className="text-red-500">{error}</p>}
-                <Button type="submit" className="w-24 px-24 rounded-sm">{isSignIn ? "Sign In" : "Sign Up"}</Button>
-                <div className="text-[14px]">
-                    <span>{isSignIn ? "Don't have an account, start with " : "Already have an account? Please "}</span>
-                    <Link href={isSignIn ? '/signup' : '/signin' } className="text-blue-500 underline">{isSignIn ? "sign up" : "sign in"}</Link>
+                                                    {isPassword && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setShowPassword((prev) => !prev)}
+                                                            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
+                                                        >
+                                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </FormItem>
+                                        );
+                                    }}
+                                />
+                                </div>
+                            );
+                        })}
+                        {error && <p className="text-red-500">{error}</p>}
+                        <div className="w-full px-8 flex flex-col mt-4 gap-4">
+                            <Button type="submit" className="w-full py-6 rounded-sm bg-[var(--prim-color)] border-2 border-transparent text-background hover:bg-transparent hover:border-[var(--prim-color)] hover:text-foreground">{isSignIn ? "Sign In" : "Sign Up"}</Button>
+                            <div className="text-[14px]">
+                                <span>{isSignIn ? "Don't have an account, start with " : "Already have an account? Please "}</span>
+                                <Link href={isSignIn ? '/signup' : '/signin' } className="text-prim-color underline hover:no-underline hover:bg-[var(--sec-color-4)] p-2 rounded-sm">{isSignIn ? "sign up" : "sign in"}</Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </Form>

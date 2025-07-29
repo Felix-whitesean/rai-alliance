@@ -23,36 +23,34 @@ export async function POST  (req:Request)  {
     if(!user_id) {
         return NextResponse.json({ error: "Unauthorized. Make sure you are signed in and have the right permissions" }, { status: 401 });
     }
-    // const role:number = +role_id;
     console.log(role_id);
     if(role_id < 1) {
         return NextResponse.json({ error: "Insufficient privileges. Contact admin." }, { status: 401 });
     }
-    const {event_id, event_title, event_theme, event_link, event_location, target_group, editor_group, poster_id, event_date } = await req.json();
-    if (event_id !== ""){
+    const {event_id, event_title, event_theme, event_link, event_location, target_group, editor_group, poster_id, event_date, displayed, linkedin_post, recording, presentation_slides, guest } = await req.json();
+    if (event_id !== "") {
         const [event_rows]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
-        'CALL sp_getevents(?, ?)', [event_id, '']);
+            'CALL sp_getevents(?, ?)', [event_id, '']);
         const editorGroup = event_rows[0][0].editor_group;
-        if(role_id < editorGroup) {
-            console.log(role_id);
-            console.log(editor_group);
-            console.log(event_id);
+        if (role_id < editorGroup) {
             return NextResponse.json({error: "Insufficient privileges. Contact editor."}, {status: 401});
         }
-        try {
-                await connection.query('CALL sp_createevent(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [event_id, event_title, event_theme, event_link, event_location, target_group, editor_group, poster_id, event_date, user_id]);
-                NextResponse.json({ message: 'Event saved successfully' });
-            } catch (error) {
-                console.error("Caught error:", error);
-                if (error instanceof Error) {
-                    return NextResponse.json({ error: error.message }, { status: 500 });
-                } else {
-                    return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
-                }
-            } finally {
-                await connection.end();
-            }
     }
+    try {
+            await connection.query('CALL sp_createevent(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [event_id, event_title, event_theme, event_link, event_location, target_group, editor_group, poster_id, event_date, user_id, displayed, linkedin_post, recording, presentation_slides, guest]);
+            // console.log(event_id, event_title, event_theme, event_link, event_location, target_group, editor_group, poster_id, event_date, user_id, displayed, linkedin_post, recording, presentation_slides)
+            NextResponse.json({ message: 'Event saved successfully' });
+        } catch (error) {
+            console.error("Caught error:", error);
+            if (error instanceof Error) {
+                return NextResponse.json({ error: error.message }, { status: 500 });
+            } else {
+                return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
+            }
+        } finally {
+            await connection.end();
+        }
+
     //
     return NextResponse.json({success: true})
 }

@@ -24,6 +24,7 @@ const CreationForm = <T extends FieldValues>({type, defaultValues}: Props<T>) =>
     const [error, setError] = useState("");
     const eventSchema = z.object({
         event_id: z.string().optional(),
+        guest: z.string().optional(),
         event_title: z.string().min(5),
         event_theme: z.string().min(5),
         event_link: z.string().optional(),
@@ -34,6 +35,10 @@ const CreationForm = <T extends FieldValues>({type, defaultValues}: Props<T>) =>
         event_date: z.coerce.date().refine((date: Date) => date > new Date(), {
             message: "Event date must be in the future",
         }),
+        linkedin_post: z.string().optional(),
+        displayed: z.string().optional(),
+        recording: z.string().optional(),
+        presentation_slides: z.string().optional(),
     })
 
     const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -105,6 +110,9 @@ return (
                                     const isSelectGroup = fieldType === "select";
                                     const isHidden  = fieldType === "hidden";
                                     const isTargetGroup = fieldKey === "target_group";
+                                    const isEditorGroup = fieldKey === "editor_group";
+                                    const hasThree = isTargetGroup || isEditorGroup;
+                                    const isDisplay = fieldKey === "displayed";
                                     return (
                                         <FormField
                                             name={fieldKey as Path<T>}
@@ -121,10 +129,10 @@ return (
                                                                     </SelectTrigger>
                                                                     <SelectContent>
                                                                         <SelectGroup>
-                                                                            <SelectLabel>User group</SelectLabel>
-                                                                            <SelectItem value="1">{ isTargetGroup ? "public" : "anyone" }</SelectItem>
-                                                                            <SelectItem value="2">{ isTargetGroup ? "registered users" : "regular users"}</SelectItem>
-                                                                            <SelectItem value="3">{isTargetGroup ? "ambassadors" : "admin"}</SelectItem>
+                                                                            <SelectLabel>{ isDisplay ? "Display options" : "User group"}</SelectLabel>
+                                                                            <SelectItem value={isDisplay ? "0" : "1"}>{isDisplay ? "Hidden" :  ( isTargetGroup ? "public" : "anyone") }</SelectItem>
+                                                                            <SelectItem value={isDisplay ? "1" : "2"}>{isDisplay ? "Displayed" :  ( isTargetGroup ? "registered users" : "regular users")}</SelectItem>
+                                                                            {hasThree ? <SelectItem value="3">{isTargetGroup ? "ambassadors" : "admin"}</SelectItem> : null }
                                                                         </SelectGroup>
                                                                     </SelectContent>
                                                                 </Select>

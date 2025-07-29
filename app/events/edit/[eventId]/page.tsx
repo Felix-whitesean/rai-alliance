@@ -7,7 +7,7 @@ import {useParams} from "next/navigation";
 import type { EventRow } from "@/constants";
 
 function formatForDateTimeLocal(date: Date): string {
-    const localdate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);``
+    const localdate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
     const yyyy = localdate.getFullYear();
     const mm = String(localdate.getMonth() + 1).padStart(2, '0');
     const dd = String(localdate.getDate()).padStart(2, '0');
@@ -43,27 +43,13 @@ export default function Create() {
 
             // Destructure specific fields from the fetched data
             const {
-                event_title,
-                event_theme,
-                event_link,
-                event_location,
-                target_group,
-                editor_group,
-                poster_id,
-                event_date,
-            } = data || {};
+                event_title, event_theme, event_link, event_location, target_group, editor_group, poster_id, event_date,
+                path, displayed, recording, presentation_slides, linkedin_post, guest, fullname,} = data || {};
 
 
             const fallbackValues = {
-                event_id: "",
-                event_title: "",
-                event_theme: "",
-                event_link: "",
-                event_location: "",
-                target_group: "",
-                editor_group: "",
-                poster_id: "",
-                event_date: "",
+                event_id: "", event_title: "", event_theme: "", event_link: "", event_location: "", target_group: "", editor_group: "", fullname: "",
+                poster_id: "", event_date: "", path: "", displayed: "", recording: "", presentation_slides: "", linkedin_post: "", guest: "",
             };
 
             // Compose clean defaultValues with specific fields
@@ -76,10 +62,16 @@ export default function Create() {
                 target_group: target_group != null ? String(target_group) : fallbackValues.target_group,
                 editor_group: editor_group != null ? String(editor_group) : fallbackValues.editor_group,
                 poster_id: poster_id ?? fallbackValues.poster_id,
-                event_date: event_date
-                    ? formatForDateTimeLocal(new Date(event_date))
-                    : fallbackValues.event_date,
-            });
+                event_date: event_date ? formatForDateTimeLocal(new Date(event_date)) : fallbackValues.event_date,
+                path: path ??  fallbackValues.path,
+                displayed: displayed != null ? String(displayed) : fallbackValues.displayed,
+                recording: recording ?? fallbackValues.recording,
+                presentation_slides: presentation_slides ?? fallbackValues.presentation_slides,
+                linkedin_post: linkedin_post  ?? fallbackValues.linkedin_post,
+                fullname: fullname ?? fallbackValues.fullname,
+                guest: guest ?? fallbackValues.guest,
+            })
+
             setLoading(false);
         };
 

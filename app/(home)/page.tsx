@@ -8,11 +8,12 @@ import Hero from "@/components/Hero";
 import Mission from "@/components/Mission";
 import Ecosystem from "@/components/Ecosystem";
 import Register from '@/components/Register';
+import Footer from "@/components/Footer";
 
 const Page = () => {
     return (
         <>
-            <div className="landing-page relative w-full h-full overflow-hidden">
+            <div className="landing-page relative w-full h-screen overflow-hidden">
                 <NavBar />
                 <div className="flex sm:flex-row flex-col-reverse h-full sm:p-0 p-4">
                     <section className="left w-[390px] relative flex flex-col sm:p-0 p-2">
@@ -52,7 +53,7 @@ const Page = () => {
                 <Mission />
                 <Ecosystem />
                 <Register/>
-
+                <Footer/>
             </div>
         </>
     )
