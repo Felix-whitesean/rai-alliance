@@ -59,13 +59,17 @@ export default function Create() {
             }
         }
         fetchData()
-    }, [image_id])
+    }, [image_id, router])
     return (
         <div>
-            {loading ?
-                <div>Deleting image... </div>
-                : <div className="text-red-500">Image deleted successfully, redirecting</div>
-            }
+            {loading ? (
+                <div>Deleting image...</div>
+            ) : error ? (
+                <div className="text-red-500">Error: {error}</div>
+            ) : (
+                <div className="text-green-600">Image deleted successfully, redirecting ...</div>
+            )}
         </div>
-    )
+    );
+
 }

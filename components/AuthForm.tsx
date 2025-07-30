@@ -1,6 +1,6 @@
 "use client";
 
-import {DefaultValues, FieldValues, Path, useForm} from "react-hook-form";
+import {DefaultValues, FieldValues, useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,7 +46,6 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         if (isSignIn) {
-            console.log("Submitted data:", data);
             const res = await signIn("credentials", {
                 redirect: false,
                 email: data.email,
@@ -60,7 +59,6 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
                 router.push("/");
             }
         } else {
-            console.log("Sending to server:", data);
             const res = await fetch("/api/register", {
                 method: "POST",
                 body: JSON.stringify(data),
@@ -96,6 +94,9 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
 
         }
     }
+    const fieldKeys = Object.keys(defaultValues) as Array<
+        keyof z.infer<typeof formSchema>
+    >;
 
     return (
         <Form {...form}>
@@ -106,14 +107,14 @@ const AuthForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
                             <Image src="/logo.png" alt="LOGO" width={30} height={20} className="self-center" />
                             <h1 className="text-prim-color bg-[var(--prim-color-4)] px-12 py-2 rounded-sm">{ isSignIn ? "Sign in" : "Sign up"} </h1>
                         </div>
-                        {Object.keys(defaultValues).map((fieldKey) => {
+                        {fieldKeys.map((fieldKey) => {
                             const fieldType = FIELD_TYPES[fieldKey as keyof typeof FIELD_TYPES];
                             const isPassword = fieldType === "password";
                             return (
                                 <div key={fieldKey} className="">
                                 <FormField
                                     control={form.control}
-                                    name={fieldKey as Path<T>}
+                                    name={fieldKey}
                                     render={({ field }) => {
                                         return (
                                             <FormItem>

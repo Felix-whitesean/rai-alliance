@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, Kode_Mono } from 'next/font/google'
-import {getServerSession, Session} from "next-auth";
-import {authOptions} from "@/lib/auth";
-import ClientSessionProvider from "@/components/ClientSessionProvider";
 import {ReactNode} from "react";
 
 const inter = Inter({
@@ -25,13 +22,10 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = async ({children}:{children:ReactNode}) =>{
-    const session: Session | null = await getServerSession(authOptions);
     return (
     <html lang="en">
       <body className={`${inter.variable} ${kodeMono.variable} antialiased min-h-screen w-full`}>
-      <ClientSessionProvider session={session}>
         {children}
-      </ClientSessionProvider>
       </body>
     </html>
     );

@@ -37,15 +37,15 @@ export async function POST(req: Request) {
             username: string;
             email: string;
         };
-        const [rows, _]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
-            'CALL sp_checkuser(?, ?)',[0, username]
+        const [rows,]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
+            'CALL sp_checkuser(?)',[username]
         );
         const user = rows[0][0] as UserRow;
 
         // accept if username is unique
         if(!user) {
             //check email
-            const [rows_for_email, _]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
+            const [rows_for_email,]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
                 'CALL sp_checkemail(?, ?)',[0, email]
             );
             const user_for_email = rows_for_email[0][0] as UserRow;

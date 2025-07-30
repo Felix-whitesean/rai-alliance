@@ -128,12 +128,12 @@ const EventsUpdates = () => {
 
                                         <Button className="text-[var(--prim-color)] bg-background rounded-[24px] border-2 border-[var(--primary-color)] py-6 self-center w-fit px-8 text-[1rem] hover:bg-[var(--prim-color)] hover:text-white">Confirm attendance</Button>
                                     </div>
-                                    { role < 2 ? "" :
+                                    {role !== null && role >= 2 && (
                                         <div className="flex flex-col bg-[#D9D9D9] border text-[var(--prim-color)] w-fit p-2 rounded-md m-auto mt-4 text-[0.8rem] text-center">
                                             <Link href={"/events/edit/"+event.event_id} className="bg-white p-2 rounded-md">Edit event</Link>
                                             <Link href={"/events/delete/"+event.event_id} className="text-red-500 p-2">Delete this event</Link>
                                         </div>
-                                    }
+                                    )}
 
                                 </div>
                             </div>

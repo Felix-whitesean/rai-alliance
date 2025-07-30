@@ -59,13 +59,16 @@ export default function Create() {
             }
         }
        fetchData()
-    }, [event_id])
+    }, [event_id, router])
     return (
         <div>
-            {loading ?
-                <div>Deleting event... </div>
-                : <div className="text-red-500"> Event deleted successfully, redirecting</div>
-            }
+            {loading ? (
+                <div>Deleting event...</div>
+            ) : error ? (
+                <div className="text-red-500">Error: {error}</div>
+            ) : (
+                <div className="text-green-600">Event deleted successfully, redirecting</div>
+            )}
         </div>
     )
 }

@@ -9,7 +9,7 @@ const  UserProfile = async() => {
         console.log("No session");
     }
     // const username =;
-    const username = session.user?.name;
+    const username = session ? session.user?.name : null;
 
     return (
         <div>{username}</div>

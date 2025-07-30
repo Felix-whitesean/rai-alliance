@@ -81,7 +81,7 @@ export default function Create() {
     return (
 
         <div>
-            <CreationForm type="events" defaultValues={defaultValues} />
+            <CreationForm defaultValues={defaultValues} />
         </div>
     );
 }

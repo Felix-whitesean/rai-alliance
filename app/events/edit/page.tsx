@@ -5,7 +5,7 @@ import CreationForm from "@/components/CreationForm";
 export default function Create() {
     return (
         <div>
-            <CreationForm type="events" defaultValues={{
+            <CreationForm defaultValues={{
                 event_id: "",
                 event_title: "",
                 event_theme:  "",

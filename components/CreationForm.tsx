@@ -13,12 +13,11 @@ import {useRouter} from "next/navigation";
 import {Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectLabel, SelectGroup,} from "@/components/ui/select"
 
 interface Props <T extends FieldValues> {
-    type: "events";
     defaultValues: T;
 }
 
 
-const CreationForm = <T extends FieldValues>({type, defaultValues}: Props<T>) => {
+const CreationForm = <T extends FieldValues>({ defaultValues}: Props<T>) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
