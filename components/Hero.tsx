@@ -1,6 +1,7 @@
 import React from 'react'
 import {MdLightbulbOutline, MdOutlineLink, MdArrowOutward} from "react-icons/md";
 import Link from "next/link";
+import Image from "next/image";
 
 
 const Hero = () => {
@@ -23,7 +24,7 @@ const Hero = () => {
                                 <h1 className="font-semibold self-center">Brief description of <span className="font-bold">RAI ALLIANCE</span></h1>
                             </div>
                             <div className="paragraph lg:pl-24 md:pl-8 sm:pl-4">
-                                <p>Short for Responsible Artificial Intelligence Alliance, this is a non-profit startup organization that advocate for responsible use of I by all industry players.</p>
+                                <p>The <span className="font-bold text-[1.1rem]"> Responsible Artificial Intelligence Alliance (RAI Alliance)</span> is a non-profit startup organization that advocates for the responsible use of artificial intelligence across all sectors and by all industry stakeholders.</p>
                                 <ol className="list-[lower-roman] lg:pl-24 pl-8">
                                     <li>
                                         <p className="flex justify-between lg:w-[60%] w-[80%]">
@@ -59,8 +60,12 @@ const Hero = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="poster w-[250px] min-h-[400px] bg-white text-prim-color">
-                             Test poster
+                        <div className="poster w-[250px] min-h-[400px] bg-white text-prim-color flex flex-col gap-2 self-center">
+                            <Image src="/hero-image.jpg" alt="HERO IMAGE" width={340} height={230} className="object-cover w-full h-full"/>
+                            <p className="text-[0.5rem] text-prim-color">Image by
+                                <a href="https://pixabay.com/users/thedigitalartist-202249/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7957989">Pete Linforth</a>
+                                from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7957989">Pixabay</a>
+                            </p>
                         </div>
                     </div>
                 </div>
